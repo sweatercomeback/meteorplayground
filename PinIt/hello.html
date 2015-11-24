@@ -1,5 +1,7 @@
 <head>
   <title>hello</title>
+    <link href="http://roboto-webfont.googlecode.com/svn/trunk/roboto.all.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -10,7 +12,9 @@
 
 <template name="conversations">
 <ul>
-    <input type="text" id="new-thread" /> <a href="#" class="js-add-convo">+</a>
+    <div class="add-thread-container">
+    <input type="text" id="new-thread" /> <a href="#" class="js-add-convo fa fa-plus"></a>
+    </div>
   {{#each conversationList}}
           {{> convo }}
   {{/each}}
@@ -18,11 +22,18 @@
 </template>
 
 <template name="convo">
-    <li>{{name}} <a href="#" class="js-add-pin">+</a> <a href="#" class="js-remove-convo">X</a>
+    <li>{{name}} <a href="#" class="js-remove-convo">X</a>
+        {{> pinForm pinId=_id }}
         <ul>
 {{#each threads}}
     <li>{{topic}} <a href="#" class="js-remove-pin">-</a></li>
 {{/each}}
         </ul>
     </li>
+</template>
+
+<template name="pinForm">
+    <div>
+    <input type="text" id="pin_{{pinId}}" class="js-add-pinput" /><a href="#" class="js-add-pin" data-thread="{{pinId}}">+</a>
+    </div>
 </template>
