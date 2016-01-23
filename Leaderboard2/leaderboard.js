@@ -16,7 +16,11 @@ if (Meteor.isClient) {
 
   Template.leaderboard.events({
     'click .inc': function () {
+
       Players.update(Session.get("selectedPlayer"), {$inc: {score: 5}});
+    },
+    'click .js-test': function() {
+      return false;
     }
   });
 
@@ -28,6 +32,7 @@ if (Meteor.isClient) {
 
   Template.player.events({
     'click': function () {
+      return false;
       Session.set("selectedPlayer", this._id);
     }
   });

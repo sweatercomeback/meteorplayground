@@ -4,25 +4,24 @@
 
 <body>
   <h1>Put A Pin In It</h1>
-
   {{> conversations}}
 </body>
 
 <template name="conversations">
 <ul>
-    <input type="text" id="new-thread" /> <a href="#" class="js-add-convo">+</a>
+  <input type="text" id="new-thread" /> <a href="#" class="js-add-convo">+</a>
   {{#each conversationList}}
-          {{> convo }}
+    {{> convo }}
   {{/each}}
 </ul>
 </template>
 
 <template name="convo">
-    <li>{{name}} <a href="#" class="js-add-pin">+</a> <a href="#" class="js-remove-convo">X</a>
-        <ul>
-{{#each threads}}
+<li>{{name}} <a href="#" class="js-add-pin">+</a> <a href="#" class="js-remove-convo">X</a>
+  <ul>
+  {{#each threads}}
     <li>{{topic}} <a href="#" class="js-remove-pin">-</a></li>
-{{/each}}
-        </ul>
-    </li>
+  {{/each}}
+  </ul>
+</li>
 </template>

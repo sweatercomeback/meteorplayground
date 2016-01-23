@@ -1,3 +1,6 @@
+/* global Meteor */
+/* global Template */
+/* global Conversations */
 Conversations = new Mongo.Collection("conversations");
 
 if (Meteor.isClient) {
