@@ -34,7 +34,7 @@ if (Meteor.isClient) {
 
     Template.convo.events({
         'click .js-add-pin': function () {
-            var newThreadInput = document.getElementById("new-thread");
+            var newThreadInput = document.getElementById("pin_"+this.pinId);
             var val = newThreadInput.value;
 
             if(val === '')
@@ -44,24 +44,26 @@ if (Meteor.isClient) {
             if(!this.threads) {
                 this.threads = [];
             }
-            this.threads.push({ topic: val });
-            Conversations.update(this._id, this);
+            //this.threads.push();
+            //Conversations.update(this._id, this);
+            Meteor.call("addThread", this.pinId, val);
         }
     });
 
     Template.convo.events({
-        'click .js-remove-pin': function () {
-            console.log(this.threads.indexOf(this));
+        'click .js-remove-pin': function (e) {
+            e.preventDefault();
+            var thread = this;
+            var id = this.conversation;
+            Meteor.call('removeThread', id, thread);
         }
     });
-
-
 }
 
 if (Meteor.isServer) {
-  Meteor.startup(function () {
+/*  Meteor.startup(function () {
     if (Conversations.find().count() === 0) {
-      var names = ["Marcia", "Chris", "New"];
+      var names = ["Marcia"];
       _.each(names, function (name) {
         Conversations.insert({
           name: name,
@@ -69,5 +71,13 @@ if (Meteor.isServer) {
         });
       });
     }
-  });
+  });*/
+    Meteor.methods({
+        removeThread: function(id, thread){
+            Conversations.update({_id: id}, {$pull : {threads : thread}});
+        },
+        addThread: function(id, thread) {
+            Conversations.update(id, {$push: {threads: { topic: thread, conversation: id }}});
+        }
+    });
 }
