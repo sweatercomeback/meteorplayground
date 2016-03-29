@@ -1,0 +1,12 @@
+<template name="ApplicationLayout">
+<head>
+  <title>textcircle</title>
+</head>
+
+<body>
+  {{> yield "header" }}
+  <div class="top-margin container main">
+    {{> yield "main"}}
+  </div>
+</body>
+</template>
